@@ -29,6 +29,8 @@
 
 	// Add the IDs of extensions you want installed when the container is created in the array below.
 	"extensions": [
-		"ms-vscode.csharp"
+		"ms-vscode.csharp",
+		"redhat.vscode-openshift-connector",
+		"redhat.vscode-openshift-extension-pack"
 	]
 }
