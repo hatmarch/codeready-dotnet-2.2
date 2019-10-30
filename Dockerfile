@@ -2,7 +2,7 @@ FROM registry.access.redhat.com/dotnet/dotnet-22-runtime-rhel7
 
 ARG config=Debug
 
-ADD bin/${config}/netcoreapp2.2/rhel.7-x64/publish/. /app/
+ADD bin/${config}/netcoreapp2.1/rhel.7-x64/publish/. /app/
 
 WORKDIR /app/
 
