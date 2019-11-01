@@ -11,7 +11,7 @@ namespace dotnet.Controllers
     public class ValuesController : Controller
     {
         const string url = "http://preference:8080";
-        const string responseStringFormat = "customer => {0}\n";
+        const string responseStringFormat = "Hello from Marc!!!!> customer => {0}\n";
         // GET api/values
         [HttpGet]
         public string Get()

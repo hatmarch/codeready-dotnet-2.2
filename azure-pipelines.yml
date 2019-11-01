@@ -11,8 +11,8 @@ pool:
 
 variables:
   buildConfiguration: 'Debug'
-  customerProjectPath: .
-  kubernetesDeploymentYamlPath: kubernetes
+  customerProjectPath: customer/dotnet/
+  kubernetesDeploymentYamlPath: customer/kubernetes
 
 
 steps:
@@ -20,6 +20,13 @@ steps:
 - task: DotNetCoreInstaller@0
   inputs:
     version: '2.2.105' # replace this value with the version that you need for your project
+
+#- script: dotnet restore
+#  workingDirectory: $(customerProjectPath)
+  
+#- script: dotnet build --configuration $(buildConfiguration)
+#  displayName: 'dotnet build $(buildConfiguration)'
+#  workingDirectory: $(customerProjectPath)
 
 # publish the binaries for release (in container)
 - script: ./pub.sh $(buildConfiguration)
