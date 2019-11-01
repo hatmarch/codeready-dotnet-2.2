@@ -21,14 +21,6 @@ steps:
   inputs:
     version: '2.2.105' # replace this value with the version that you need for your project
 
-- script: dotnet restore
-  displayName: Restore Libraries
-  workingDirectory: $(customerProjectPath)
-  
-- script: dotnet build customer.csproj --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
-  workingDirectory: $(customerProjectPath)
-
 # publish the binaries for release (in container)
 - script: ./pub.sh $(buildConfiguration)
   displayName: Prepare for publishing $(buildConfiguration)
