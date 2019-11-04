@@ -11,20 +11,16 @@ namespace dotnet.Controllers
     [Route("/")]
     public class ValuesController : Controller
     {
-        const string url = "http://preference.coles-demo.svc.cluster.local:8080";
+        const string preferenceUrl = "http://preference.coles-demo2.svc.cluster.local:8080/";
+       
         const string responseStringFormat = "Hello from {0}> customer => {1}\n";
 
         static readonly HttpClient client = new HttpClient();
 
-
-
         private string callPreference()
 		{
-			//           HttpResponseMessage response = await client.GetAsync(url);
-			//           response.EnsureSuccessStatusCode();
-			//           string responseBody = await response.Content.ReadAsStringAsync();
             string responseBody = "unknown";
-			using (var task = client.GetStringAsync(url))
+			using (var task = client.GetStringAsync(preferenceUrl))
 			{
                 try
                 {
