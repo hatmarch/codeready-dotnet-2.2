@@ -4,21 +4,39 @@
 ****
 Prior to running this demo, the following things should exist:
 
-* a cluster with CodeReady workspaces should already be installed (follow this information here on a cluster with admin rights)
-* This script should have been run
+* a cluster with CodeReady workspaces should already be installed (follow this information link:https://www.eclipse.org/che/docs/che-7/introduction-to-eclipse-che/[here] on a cluster with admin rights)
+----
+$  chectl server:start --platform=openshift --installer=operator --domain=apps.cloes.openshifttc.com -n dotnet-workspace
+  ✔ Verify Kubernetes API...OK (it's OpenShift)
+  ✔ 👀  Looking for an already existing Che instance
+    ✔ Verify if Che is deployed into namespace "dotnet-workspace"
+      ✔ Found running che deployment
+      ✔ Found running postgres deployment
+      ✔ Found running keycloak deployment
+      ✔ Found running plugin registry deployment
+      ✔ Found running devfile registry deployment
+    ✔ Check Che server status...RUNNING (auth enabled)
+  ✔ ✅  Post installation checklist
+    ✔ Retrieving Che Server URL...http://che-dotnet-workspace.apps.cloes.openshifttc.com
+    ✔ Che status check
+Command server:start has completed successfully.
+----
+* link:scripts/01-project-setup.sh[This script] should have been run from within a terminal that has access to the openshift cluster
+----
+$ scripts/01-project-setup.sh coles-demo
+----
+* A code ready workspace should already be configured ("prepared earlier") in the "dotnet-workspace" project that is based on link:che/Devfile.yml[this DevFile.yml]
 
+* Two users should already be registered with the email addresses:
+** mhildenb@redhat.com
+** brbaker@redhat.com
 ****
 
-== Setting the Scene (for slides?)
+== Setting the Scene
 
 For the conceit of this demo, Tasks is an application that you would like to have managed by remote teams or temporary staff, thus making RedHat's CodeReady Workspaces an appealing option.
 
-Marc manages a team of temporary (or remote) developers, and Bryon is one of those remote developers.  Tasks is an application that Grocery.com runs on their OpenShift platform (see <<Technical Context>>)
-
-Tasks is an application that is under revision control, but access to this code must be limited in a private repository.  Moreover, temporary workers have slightly conflicting priorities
-
-* They must get up to speed quickly and be productive
-* They must not be able to access the source code directory or clone it to their laptops
+Marc manages a team of temporary (or remote) developers, and Bryon is one of those remote developers.  In this demo Marc and his remote developers are maintaining a number of _dotnet core 2.2_ microservices under OpenShift (see <<Technical Context>>)
 
 In this demo, you will see
 
@@ -35,30 +53,29 @@ In this demo, you will see
 
 First we want to give some context to the toy application and environment that we've set up.
 
-All of this is to support an JBoss EAP app called link:https://github.com/OpenShiftDemos/openshift-tasks["Tasks"] that highlights aspects of OpenShift's functionality.  
+image:../images/acme-diagram.png[]
 
+Pretend we have a company that allows customers to access their profile, save preferences, and have those preferences fed into a recommendation service that attempts to determine recommendations based on preferences.
 
-NOTE: The demo was built using Azure Red Hat OpenShift 3.11.  This is a managed offering of OpenShift that can be purchased from Microsoft.  There is nothing particularly special about this cluster.
+Currently our Customer service does not connect to our preferences service.  We are going to change that and deploy a new version of the service using CodeReady Workspaces and Azure Pipelines
 
-=== Projects and Environments
+== Build and Deployment Chain
 
-In this demo, we have 3 different projects:
+image:../images/acme-development.png[]
 
-* Tasks - Dev: This is meant to represent our Dev environment for Tasks
-* Tasks - Stage: This is meant to represent our 
-* CI/CD: This project contains our devops including
-** A sample OpenShift Pipeline, a pre-defined CI/CD pipeline on ARO.
-** Jenkins, open source CI/CD engine and automation server.
-** Nexus, software artifact repository.
-** SonarQube, a static analysis platform
-** Gogs, a self-hosted GitHub service (with attendant database)
+Some points to highlight:
 
-image::../images/aro-pipeline.png[]
+* *DockerHub* can be replaced with any image registry service or even an image stream within OpenShift
 
-Navigate to the Tasks application and play around briefly.
+* *GitHub Repo* can be replaced with just about any repo, including a Gogs lightweight GitHub repo that can reside within OpenShift and _not be accessible to the outside at all_ for utmost security of said repos
 
-== Installing CodeReady Workspace
+* *Namespaces* we have 2 different projects (or namespaces) within OpenShift
+** dotnet-workspace: This is meant to represent where all our CodeReady Workspaces will be managed within OpenShift
+** coles-demo: This is where the actual microservice containers will live
 
+== Installing CodeReady Workspaces
+
+====
 1. Download the CodeReady Workspace installer from link:access.redhat.com[]
 2. _Optional:_ Change storage to be per-workspace
 3. Run the deploy script to install CRW in demo-workspaces
@@ -68,13 +85,56 @@ Navigate to the Tasks application and play around briefly.
     --server-image=registry.redhat.io/codeready-workspaces/server-rhel8:1.2
 ----
 NOTE: This installs an *Operator* which in turn installs all the required components for CRW.  It will take a few minutes to setup.  At this point, you could switch to a CRW you prepared earlier
+====
 
-4. Open the overview for the demo-workspaces project.  Click on the exposed route for the CRW
-5. You will be prompted to log in.  Enter Marc's login details
-NOTE: This is part of the keycloak implementation that allows accounts to restrict access to the CRW
-6. Bryon will also register with email address brbaker@redhat.com in a separate browser
+1. Open the OpenShift console in a tab
+* user: kubeadmin
+* password: mQfyp-zURPC-thsS8-b7Pv3
+2. Select the "dotnet-workspace" project, then click on Routes, then find the link:http://che-dotnet-workspace.apps.cloes.openshifttc.com/dashboard/#/["che" route]
+image:../images/find-crw-dashboard.png[]
 
-== Setup a workspace for Tasks
+3. When prompted, login (or register)
+4. Go to workspaces and click the play button on the "dotnet"
+workspace.  While that loads, do a tour of stack creation
+
+====
+4. Click on Create Workspace and fill in as shown below. 
+
+image:../images/crw-create-workspace.png[]
+
+INFO: git repo is _https://github.com/hatmarch/codeready-dotnet-2.2.git_
+
+5. When done, click the dropdown to reveal "Create and Proceed Editing"
+
+image:../images/crw-create-and-proceed.png[]
+
+6. Edit the workspace
+* Overview: Set the name
+* Projects: point out the git repo
+* Plugins: Note the omnisharp plugin (based on extensions)
+* Editors: Theia
+* Devfile: See link:che/Devfile.yml[this Devfile.yml] in the project and paste in the launch.conf and tasks
+* Share: We'll show that in a minute
+
+7. *_Don't_* click Open.  Once the dotnet workspace stops, you can abandon this workspace
+====
+
+6. From the Workspaces tab, click the gear icon on the right of the entry for the dotnet workspace  
+
+7. Click Share and then Add Developer, fill in as below and click save
+image:../images/crw-share.png[]
+
+== Edit the project
+
+TODO: KEEP GOING
+* typo and build
+* Bryon edit preference url
+* command shortcuts
+* console build
+* run
+
+* debug
+* set breakpoint
 
 1. Create a new JBoss workspace
 2. In a separate tab, open the route to the gogs workspace

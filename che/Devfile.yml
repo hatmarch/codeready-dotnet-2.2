@@ -1,0 +1,67 @@
+metadata:
+  name: dotnet
+projects:
+  - name: coles-demo
+    source:
+      location: 'https://github.com/hatmarch/codeready-dotnet-2.2.git'
+      type: git
+      branch: feature-trigger
+components:
+  - id: redhat-developer/che-omnisharp-plugin/latest
+    memoryLimit: 1024Mi
+    type: chePlugin
+    alias: omnisharp
+  - id: redhat-developer/netcoredbg-theia-plugin/latest
+    memoryLimit: 512Mi
+    type: chePlugin
+    alias: netcoredbg
+  - mountSources: true
+    endpoints:
+      - name: 5000/tcp
+        port: 5000
+    memoryLimit: 512Mi
+    type: dockerimage
+    volumes:
+      - name: dotnet
+        containerPath: /home/user
+    alias: dotnet
+    image: 'quay.io/eclipse/che-dotnet-2.2:7.3.0'
+apiVersion: 1.0.0
+commands:
+  - name: update dependencies
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/coles-demo'
+        type: exec
+        command: dotnet restore
+        component: dotnet
+  - name: run
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/coles-demo'
+        type: exec
+        command: dotnet run
+        component: dotnet
+  - name: build
+    actions:
+      - workdir: '${CHE_PROJECTS_ROOT}/coles-demo'
+        type: exec
+        command: dotnet build
+        component: dotnet
+  - name: Launch .NET Web Application on Debug mode
+    actions:
+      - referenceContent: |
+          {
+            "version": "0.2.0",
+              "configurations": [
+                {
+                    "type": "netcoredbg",
+                    "request": "launch",
+                    "program": "/projects/coles-demo/bin/Debug/netcoreapp2.2/customer.dll",
+                    "args": ["--urls", "http://*:8080"],
+                    "name": ".NET Core Launch (console)",
+                    "stopAtEntry": false,
+                    //"console": “internalConsole”,
+                    //"preLaunchTask": "build"
+                }
+            ]
+          }
+        type: vscode-launch
