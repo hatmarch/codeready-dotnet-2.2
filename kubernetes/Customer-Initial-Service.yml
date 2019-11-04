@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: customer-v2
+spec:
+  ports:
+    - name: customer
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+  selector:
+    app: customer
+    version: v2
+  sessionAffinity: None
