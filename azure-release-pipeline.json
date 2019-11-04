@@ -1,0 +1,359 @@
+{
+    "source": 2,
+    "revision": 10,
+    "description": null,
+    "createdBy": {
+        "displayName": "mhildenb",
+        "url": "https://spsprodeau1.vssps.visualstudio.com/Af38b2f84-a226-4eee-8329-878558ebc81d/_apis/Identities/c7376a94-2c19-6008-b579-e2ef6440376e",
+        "_links": {
+            "avatar": {
+                "href": "https://dev.azure.com/mhildenb/_apis/GraphProfile/MemberAvatars/msa.YzczNzZhOTQtMmMxOS03MDA4LWI1NzktZTJlZjY0NDAzNzZl"
+            }
+        },
+        "id": "c7376a94-2c19-6008-b579-e2ef6440376e",
+        "uniqueName": "mhildenb@redhat.com",
+        "imageUrl": "https://dev.azure.com/mhildenb/_apis/GraphProfile/MemberAvatars/msa.YzczNzZhOTQtMmMxOS03MDA4LWI1NzktZTJlZjY0NDAzNzZl",
+        "descriptor": "msa.YzczNzZhOTQtMmMxOS03MDA4LWI1NzktZTJlZjY0NDAzNzZl"
+    },
+    "createdOn": "2019-11-03T02:07:47.650Z",
+    "modifiedBy": {
+        "displayName": "mhildenb",
+        "url": "https://spsprodeau1.vssps.visualstudio.com/Af38b2f84-a226-4eee-8329-878558ebc81d/_apis/Identities/c7376a94-2c19-6008-b579-e2ef6440376e",
+        "_links": {
+            "avatar": {
+                "href": "https://dev.azure.com/mhildenb/_apis/GraphProfile/MemberAvatars/msa.YzczNzZhOTQtMmMxOS03MDA4LWI1NzktZTJlZjY0NDAzNzZl"
+            }
+        },
+        "id": "c7376a94-2c19-6008-b579-e2ef6440376e",
+        "uniqueName": "mhildenb@redhat.com",
+        "imageUrl": "https://dev.azure.com/mhildenb/_apis/GraphProfile/MemberAvatars/msa.YzczNzZhOTQtMmMxOS03MDA4LWI1NzktZTJlZjY0NDAzNzZl",
+        "descriptor": "msa.YzczNzZhOTQtMmMxOS03MDA4LWI1NzktZTJlZjY0NDAzNzZl"
+    },
+    "modifiedOn": "2019-11-04T02:38:07.767Z",
+    "isDeleted": false,
+    "lastRelease": {
+        "id": 9,
+        "name": "Release-9",
+        "artifacts": [],
+        "_links": {},
+        "description": "",
+        "releaseDefinition": {
+            "id": 1,
+            "projectReference": null,
+            "_links": {}
+        },
+        "createdOn": "2019-11-04T02:38:48.860Z",
+        "createdBy": {
+            "displayName": "mhildenb",
+            "url": "https://spsprodeau1.vssps.visualstudio.com/Af38b2f84-a226-4eee-8329-878558ebc81d/_apis/Identities/c7376a94-2c19-6008-b579-e2ef6440376e",
+            "_links": {
+                "avatar": {
+                    "href": "https://dev.azure.com/mhildenb/_apis/GraphProfile/MemberAvatars/msa.YzczNzZhOTQtMmMxOS03MDA4LWI1NzktZTJlZjY0NDAzNzZl"
+                }
+            },
+            "id": "c7376a94-2c19-6008-b579-e2ef6440376e",
+            "uniqueName": "mhildenb@redhat.com",
+            "imageUrl": "https://dev.azure.com/mhildenb/_apis/GraphProfile/MemberAvatars/msa.YzczNzZhOTQtMmMxOS03MDA4LWI1NzktZTJlZjY0NDAzNzZl",
+            "descriptor": "msa.YzczNzZhOTQtMmMxOS03MDA4LWI1NzktZTJlZjY0NDAzNzZl"
+        }
+    },
+    "variables": {
+        "IMAGETAG": {
+            "value": "mhildema/customer-dotnet:v$(Build.BuildId)"
+        },
+        "NAMESPACE": {
+            "value": "coles-demo"
+        }
+    },
+    "variableGroups": [],
+    "environments": [
+        {
+            "id": 1,
+            "name": "Stage 1",
+            "rank": 1,
+            "owner": {
+                "displayName": "mhildenb",
+                "url": "https://spsprodeau1.vssps.visualstudio.com/Af38b2f84-a226-4eee-8329-878558ebc81d/_apis/Identities/c7376a94-2c19-6008-b579-e2ef6440376e",
+                "_links": {
+                    "avatar": {
+                        "href": "https://dev.azure.com/mhildenb/_apis/GraphProfile/MemberAvatars/msa.YzczNzZhOTQtMmMxOS03MDA4LWI1NzktZTJlZjY0NDAzNzZl"
+                    }
+                },
+                "id": "c7376a94-2c19-6008-b579-e2ef6440376e",
+                "uniqueName": "mhildenb@redhat.com",
+                "imageUrl": "https://dev.azure.com/mhildenb/_apis/GraphProfile/MemberAvatars/msa.YzczNzZhOTQtMmMxOS03MDA4LWI1NzktZTJlZjY0NDAzNzZl",
+                "descriptor": "msa.YzczNzZhOTQtMmMxOS03MDA4LWI1NzktZTJlZjY0NDAzNzZl"
+            },
+            "variables": {},
+            "variableGroups": [],
+            "preDeployApprovals": {
+                "approvals": [
+                    {
+                        "rank": 1,
+                        "isAutomated": true,
+                        "isNotificationOn": false,
+                        "id": 1
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": null,
+                    "releaseCreatorCanBeApprover": false,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 1
+                }
+            },
+            "deployStep": {
+                "id": 2
+            },
+            "postDeployApprovals": {
+                "approvals": [
+                    {
+                        "rank": 1,
+                        "isAutomated": true,
+                        "isNotificationOn": false,
+                        "id": 3
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": null,
+                    "releaseCreatorCanBeApprover": false,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 2
+                }
+            },
+            "deployPhases": [
+                {
+                    "deploymentInput": {
+                        "parallelExecution": {
+                            "parallelExecutionType": 0
+                        },
+                        "agentSpecification": {
+                            "identifier": "ubuntu-18.04"
+                        },
+                        "skipArtifactsDownload": false,
+                        "artifactsDownloadInput": {
+                            "downloadInputs": []
+                        },
+                        "queueId": 18,
+                        "demands": [],
+                        "enableAccessToken": false,
+                        "timeoutInMinutes": 0,
+                        "jobCancelTimeoutInMinutes": 1,
+                        "condition": "succeeded()",
+                        "overrideInputs": {}
+                    },
+                    "rank": 1,
+                    "phaseType": 1,
+                    "name": "Agent job",
+                    "refName": null,
+                    "workflowTasks": [
+                        {
+                            "environment": {},
+                            "taskId": "a8515ec8-7254-4ffd-912c-86772e2b5962",
+                            "version": "3.*",
+                            "name": "Replace tokens in **/*.yml",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "rootDirectory": "$(System.DefaultWorkingDirectory)/coles-output/drop/",
+                                "targetFiles": "**/*.yml",
+                                "encoding": "auto",
+                                "writeBOM": "true",
+                                "escapeType": "auto",
+                                "escapeChar": "",
+                                "charsToEscape": "",
+                                "verbosity": "detailed",
+                                "actionOnMissing": "fail",
+                                "keepToken": "false",
+                                "tokenPrefix": "#{",
+                                "tokenSuffix": "}#",
+                                "emptyValue": "(empty)"
+                            }
+                        },
+                        {
+                            "environment": {},
+                            "taskId": "ebaf1cdc-a60f-4e57-ba29-e3b8f80aeb1e",
+                            "version": "2.*",
+                            "name": "oc apply",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "openshiftService": "c09712a5-f025-4c66-be89-78340d1df399",
+                                "version": "",
+                                "cmd": "apply -f $(System.DefaultWorkingDirectory)/coles-output/drop/Deployment-v2-azure.yml -n $(NAMESPACE)"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "environmentOptions": {
+                "emailNotificationType": "OnlyOnFailure",
+                "emailRecipients": "release.environment.owner;release.creator",
+                "skipArtifactsDownload": false,
+                "timeoutInMinutes": 0,
+                "enableAccessToken": false,
+                "publishDeploymentStatus": true,
+                "badgeEnabled": false,
+                "autoLinkWorkItems": false,
+                "pullRequestDeploymentEnabled": false
+            },
+            "demands": [],
+            "conditions": [
+                {
+                    "name": "ReleaseStarted",
+                    "conditionType": 1,
+                    "value": ""
+                }
+            ],
+            "executionPolicy": {
+                "concurrencyCount": 1,
+                "queueDepthCount": 0
+            },
+            "schedules": [],
+            "currentRelease": {
+                "id": 9,
+                "url": "https://vsrm.dev.azure.com/mhildenb/cb86e9fd-3dbf-4c54-9448-1ada36a31822/_apis/Release/releases/9",
+                "_links": {}
+            },
+            "retentionPolicy": {
+                "daysToKeep": 30,
+                "releasesToKeep": 3,
+                "retainBuild": true
+            },
+            "processParameters": {},
+            "properties": {
+                "BoardsEnvironmentType": {
+                    "$type": "System.String",
+                    "$value": "unmapped"
+                },
+                "LinkBoardsWorkItems": {
+                    "$type": "System.String",
+                    "$value": "False"
+                }
+            },
+            "preDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "postDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "environmentTriggers": [],
+            "badgeUrl": "https://vsrm.dev.azure.com/mhildenb/_apis/public/Release/badge/cb86e9fd-3dbf-4c54-9448-1ada36a31822/1/1"
+        }
+    ],
+    "artifacts": [
+        {
+            "sourceId": "cb86e9fd-3dbf-4c54-9448-1ada36a31822:5",
+            "type": "Build",
+            "alias": "coles-output",
+            "definitionReference": {
+                "artifactSourceDefinitionUrl": {
+                    "id": "https://dev.azure.com/mhildenb/_permalink/_build/index?collectionId=8e7b4082-01f4-45aa-a0a6-7fea630240a3&projectId=cb86e9fd-3dbf-4c54-9448-1ada36a31822&definitionId=5",
+                    "name": ""
+                },
+                "defaultVersionBranch": {
+                    "id": "",
+                    "name": ""
+                },
+                "defaultVersionSpecific": {
+                    "id": "",
+                    "name": ""
+                },
+                "defaultVersionTags": {
+                    "id": "",
+                    "name": ""
+                },
+                "defaultVersionType": {
+                    "id": "latestType",
+                    "name": "Latest"
+                },
+                "definition": {
+                    "id": "5",
+                    "name": "coles-demo"
+                },
+                "definitions": {
+                    "id": "",
+                    "name": ""
+                },
+                "IsMultiDefinitionType": {
+                    "id": "False",
+                    "name": "False"
+                },
+                "project": {
+                    "id": "cb86e9fd-3dbf-4c54-9448-1ada36a31822",
+                    "name": "coles-demo"
+                },
+                "repository": {
+                    "id": "",
+                    "name": ""
+                }
+            },
+            "isPrimary": true,
+            "isRetained": false
+        }
+    ],
+    "triggers": [
+        {
+            "artifactAlias": "coles-output",
+            "triggerConditions": [
+                {
+                    "sourceBranch": "master",
+                    "tags": [],
+                    "tagFilter": null,
+                    "useBuildDefinitionBranch": false,
+                    "createReleaseOnBuildTagging": false
+                }
+            ],
+            "triggerType": 1
+        }
+    ],
+    "releaseNameFormat": "Release-$(rev:r)",
+    "tags": [],
+    "properties": {
+        "DefinitionCreationSource": {
+            "$type": "System.String",
+            "$value": "ReleaseNew"
+        },
+        "IntegrateBoardsWorkItems": {
+            "$type": "System.String",
+            "$value": "False"
+        },
+        "IntegrateJiraWorkItems": {
+            "$type": "System.String",
+            "$value": "false"
+        }
+    },
+    "id": 1,
+    "name": "New release pipeline",
+    "path": "\\",
+    "projectReference": null,
+    "url": "https://vsrm.dev.azure.com/mhildenb/cb86e9fd-3dbf-4c54-9448-1ada36a31822/_apis/Release/definitions/1",
+    "_links": {
+        "self": {
+            "href": "https://vsrm.dev.azure.com/mhildenb/cb86e9fd-3dbf-4c54-9448-1ada36a31822/_apis/Release/definitions/1"
+        },
+        "web": {
+            "href": "https://dev.azure.com/mhildenb/cb86e9fd-3dbf-4c54-9448-1ada36a31822/_release?definitionId=1"
+        }
+    }
+}
