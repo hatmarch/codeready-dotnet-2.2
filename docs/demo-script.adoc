@@ -248,7 +248,7 @@ image:../images/che-git-push.png[]
 
 5. When prompted for login details, use these:
 * *user:* hatmarch
-* *token:* c2893357856cc5700da9c90005c745a0032fdaab
+* *token:* 5de405275e0d8b1440efe14c7f77cd48ce9e8e28
 
 == Continuous Integration (Azure DevOps Pipeline)
 
