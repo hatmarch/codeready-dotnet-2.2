@@ -73,6 +73,14 @@ Some points to highlight:
 ** dotnet-workspace: This is meant to represent where all our CodeReady Workspaces will be managed within OpenShift
 ** coles-demo: This is where the actual microservice containers will live
 
+== Initial State
+
+Check that the original customer service is up.  It should not connect to any of the other services.
+
+Link should be link:http://customer-v2-coles-demo.apps.cloes.openshifttc.com/[here]
+
+image:../images/customer-orig.png[]
+
 == Installing CodeReady Workspaces
 
 ====
@@ -126,143 +134,200 @@ image:../images/crw-share.png[]
 
 == Edit the project
 
-TODO: KEEP GOING
-* typo and build
-* Bryon edit preference url
-* command shortcuts
-* console build
-* run
+Explain that this is a simple dotnet MVC project.  We're going to look at the ValuesController which handles the mapping for /.  We're going to start there because we want the customer module to be able to call the Preferences module
 
-* debug
-* set breakpoint
+1. If prompted to restore packages, then do so first
+2. Open the ValuesController by using the shortcut CMD+p
+* also point out the familiar project explorer on the left
+2. Create a typo and show the continuous linting 
+image:../images/che-compile-error.png[]
 
-1. Create a new JBoss workspace
-2. In a separate tab, open the route to the gogs workspace
-* Point out the service route of the gogs workspace
-* replace the clone http route with the service name of the route
+NOTE: If the errors do not appear right away, start a build by going to Terminal > Tasks and then selected build when prompted.  If the IDE still appears unresponsive, then see <<Unresponsive IDE>> in the <<Troubleshooting>> section
+
+3. Click on the lightbulb and select fix typo
+image:../images/che-lightbulb-fix.png[]
+
+4. If you haven't already, kick off a build by selecting Terminal > Run Task... and then select build
+
+5. Ask assistant (Bryon) to log into the code ready workspace link:http://che-dotnet-workspace.apps.cloes.openshifttc.com/dashboard/#/ide/mhildenb/dotnet[here] and ask him to change the value of url to:
+* const string url = "http://preference.coles-demo.svc.cluster.local/:8080"
+* this will cause a problem
+
+6. Meanwhile, demonstrate editing features whilst Bryon is making changes (_see also link:templates/Template_ValuesController.cs[Template_ValuesController.cs] in the templates directory_)
+* show the remove unnecessary usings
+* show auto complete/intellisense
+* show mutli-select (e.g. select callPreference and use ctrl-d to select all occurrances of this and change to callPreferenceService)
+
+image:../images/che-edits.png[]
+
+== Using the Terminal
+
+1. Open the terminal by going to Terminal > Open Terminal in specific container and then select the name of the workspace (there will usually only be one choice)
+
+image:../images/open-terminal.png[]
+
+2. Once the console is opened, type the following to build the changes 
 ----
-http://gogs.cicd.svc.cluster.local:3000/gogs/openshift-tasks.git
-----
-3. Open the new workspace
-4. Click on Import Project
+$ cd coles-demo
+$ dotnet build
+Microsoft (R) Build Engine version 16.2.32702+c4012a063 for .NET Core
+Copyright (C) Microsoft Corporation. All rights reserved.
 
-image::../images/import-project.png[]
+  Restore completed in 63.24 ms for /projects/coles-demo/customer.csproj.
+  customer -> /projects/coles-demo/bin/Debug/netcoreapp2.2/customer.dll
 
-5. Configure as Maven
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
 
-image::../images/project-configuration.png[]
-
-6. Go to Configure workspace
-
-image::../images/configure-workspace.png[]
-
-7. Go to the workspaces view and share with brbaker@redhat.com
-
-image::../images/share-workspace.png[]
-
-== Edit the code
-
-1. Open *index.jsp*.  Open the file by navigating to it (from assistant menu)
-
-image::../images/navigate-to.png[]
-
-2. Find and Replace "OpenShift Tasks" with "Azure Red Hat Openshift Tasks"
-3. Navigate to: *DemoResource.java*
-4. _Watch_ Bryon make the following changes to the *toggleHealth* method:
-
-====
-image::../images/toggle-health-delta.png[]
-====
-
-== Compile the code
-
-1. Build the project by using the maven build command (from UI)
-
-image::../images/build-success.png[]
-
-====
-TODO: Fill this in!
-====
-
-== Commit the code
-
-1. Open Git window by going to Git > Commit
-
-image::../images/git-commit.png[]
-
-2. Make sure the changes are selected, enter a commit message, and click commit (_note: don't push to origin yet_)
-
-3. Shrink the existing tab and in a new window (Window #2), go to the *CI/CD* project in OpenShift.
-* Select the Build > Pipelines option on the right in Window #2
-====
-image::../images/pipelines-view.png[]
-====
-
-4. In Window #1, open the terminal, navigate to the project directory, and push to origin
-----
-$ cd 
-$ git push origin
-Enumerating objects: 17, done.
-Counting objects: 100% (17/17), done.
-Delta compression using up to 4 threads.
-Compressing objects: 100% (7/7), done.
-Writing objects: 100% (9/9), 754 bytes | 754.00 KiB/s, done.
-Total 9 (delta 2), reused 0 (delta 0)
-Username for 'http://gogs.cicd.svc.cluster.local:3000': gogs
-Password for 'http://gogs@gogs.cicd.svc.cluster.local:3000':
-To http://gogs.cicd.svc.cluster.local:3000/gogs/openshift-tasks.git
-   3c27c77..0150cfc  eap-7 -> eap-7
+Time Elapsed 00:00:03.78
 ----
 
-5. Navigate to the Tasks - Dev route.  Play with the app
-* Notice the issue where you don't get a message when toggling back to healthy
-
-image::../images/tasks-dev-broken.png[]
-
-== Debugging the container
-
-There is clearly an issue that we're not getting a message whenver we toggle health.  We need to debug this issue.
-
-WARNING: You need to ensure the DeploymentConfig for the Tasks pod has JAVA_OPTS that include the debugger flags
-
-1. Navigate to *DemoResource.java* and set a breakpoint on line 71 by clicking on the number
-2. Window #2> In a new tab of this window, look up the IP address of one of the running containers
-* Open the "Tasks - Dev" project
-* Go to Application > Pods
-* Select the running tasks pod and look at the details.  Find the IP address of the pod
-
-image::../images/task-dev-ip.png[]
-
-3. Go to the CodeReady Workspace and select Run > Edit Debug Configuration
-4. Using IP address, update the Debug Configuration per this image:
-
-image::../images/remote-debug-configuration.png[]
-
-5. Click Save, then click Debug
-* Notice the Debug "perspective" in the workspace window
-
-6. In Window #2, click on Toggle Health
-* You should show up in the debugger in Window #1
-
-7. Demonstrate stepping functionality, watch window, and stack trace.
-8. Fix the code and recommit and deploy from the command line
+3. _optional_ Whilst there show that the terminal has access to whatever programs were included in the dockerfile that created the workspace.  Try curling the preference endpoint _pointing out that this url is not available outside the cluster!_
 ----
-$ git add .
-$ git commit -m "Fix toggleHealth"
-$ git push origin
+$ curl http://preference.coles-demo.svc.cluster.local:8080
+preference => recommendation v1 from '69d8cd757c-hm94x': 1
 ----
 
-== Promote to Staging
+== Debugging
+1. Go to the debug panel and click "play"
 
-1. Make sure Window #2 is set to Build > Pipelines on the commit from last section
-2. Wait until "Promote to STAGE?" lights up so you can click it
-* NOTE: If you miss it, just click the *Start Pipeline* button in the corner
+image:../images/debug-start.png[]
 
-image::../images/promote-to-stage.png[]
+2. You will be prompted to redirect port output and open a window.  Say yes to both
+3. Refresh the window and eventually it will come up with a result (_but not the one that we want_)
+
+image:../images/che-run.png[]
+
+4. Let's set a breakpoint at the start of callPreference to see what's going on
+* show call-stack and variables
+* show hover over to show value of variable
+image:../images/debug-hover.png[]
+
+5. concluding that the issue is a typo in the url, correct the url line accordingly
+
+----
+
+----
+
+6. Build the project and then run the debugger again to test that it's working correctly.
+
+== Testing
+
+There is a special test panel available (as it is in VSCode) that can be accessed from the View > Test menu
+
+WARNING: Due to time contraints we can't show the testing functionality at this time
+
+== Checking in
+
+Now that we're confident that our code is working we're going to  check it into our git repo which will trigger an Azure pipeline (which we'll take a tour of after checkin)
+
+1. *Command line* you can run the git command from the command line
+----
+$ git status
+On branch feature-trigger
+Your branch is up-to-date with 'origin/feature-trigger'.
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   Controllers/ValuesController.cs
+
+no changes added to commit (use "git add" and/or "git commit -a")
+----
+
+2. You can also access the git panel from within the IDE.  Let's use it to stage our changes and make a commit message.
+
+image:../images/che-git-panel.png[]
+
+3. Once you have a commit message written, press the check box to commit the change.  
+
+4. To trigger the build, we need to push this branch to the repo which we can also do through the gui as follows:
+
+image:../images/che-git-push.png[]
+
+5. When prompted for login details, use these:
+* *user:* hatmarch
+* *token:* c2893357856cc5700da9c90005c745a0032fdaab
+
+== Continuous Integration (Azure DevOps Pipeline)
+
+There are a couple of pre-requisites that need to be setup with Azure DevOps.  These can be found under Project Settings
+
+image:../images/azure-service-connections.png[]
+
+A. *OpenShift* There is the OpenShift service connector (that is installed from the marketplace).
+* for more information on this, see link:https://github.com/redhat-developer/openshift-vsts/blob/master/docs/getting-started.md[this link]
+B. *Docker Registry* This is the connection to the image registry (dockerhub in this instance, but can be any docker registry) for storing images
+C. *Git Repo* This is an integration with GitHub for triggering builds and pulling down the source code to make the build artifact
+
+=== Pipeline
+
+Once we push to the git repo, we can open our corresponding Azure DevOps pipeline link:https://dev.azure.com/mhildenb/coles-demo/_build[here].
+
+1. Show the Pipelines view and that a build has been triggered
+
+image:../images/pipelines-view.png[]
+
+image:../images/pipeline-log-view.png[]
+
+2. Tour the different point of the job
+
+image:../images/azure-pipeline-annotated.png[]
+
+A. *Trigger* This build is triggered only on checkin to this github repo on this branch
+B. *Build* Script that controls the building of the artifacts of this project
+C. *Docker* Creation of the docker image, notice the version number
+D. *Artifacts* Artefacts that get passed to the release pipeline.  In this case, the YAML file is the most critical
+
+=== Release
+
+Now navigate to the release side link:https://dev.azure.com/mhildenb/coles-demo/_release?_a=releases&view=mine&definitionId=1[here]
+
+image:../images/azure-release-pipeline.png[]
+
+1. Review this overview
+
+image:../images/azure-release-triggers.png[]
+
+2. Let's take a look at those scripts by clicking the "Wdit" button highlighted above and then "Edit Release"
+
+image:../images/azure-release-detail-1.png
+
+ 3. Talk about the YAML token replace (on link:/workspaces/codeready-dotnet-2.2/azure-pipelines.yml[this] deployment
 
 
-== Post Mortem
+4.  Integration with OpenShift
 
-1. Static Analysis Warned us!
+image:../images/azure-release-detail-2.png[]
 
-image::../images/sonarqube-code-smells.png[]
+Notice the service connection and the use of variables for creating a deployment yaml and then applying it to the cluster in the proper namespace.
+
+image:../images/azure-variables.png[]
+
+== Verify Deployment
+
+TODO: Show an image of new customer service running
+
+TODO: Reset everything back to 
+- Customer image
+- Git repo on the workspace reset
+
+== Troubleshooting
+
+=== Unresponsive IDE
+
+If the IDE or debugger fail to start, attempt this:
+
+1. (_In a shell where you are logged in with edit rights to the dotnet-workspace project_) run link:scripts/01-project-setup.sh[this script] to restart the che server.  
+2. The script will watch the deployments and print them to the screen.  Hit ctrl-C once it shows that the che pod is available again
+
+----
+$ scripts/util-restart-che-server.sh
+NAME   READY   UP-TO-DATE   AVAILABLE   AGE
+che    0/1     1            0           16h
+che   1/1   1     1     16h
+----
+3. Refresh the browser that was pointing to the workspace.  It should come back up quickly
+
+
