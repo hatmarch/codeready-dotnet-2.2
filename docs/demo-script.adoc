@@ -307,11 +307,9 @@ image:../images/azure-variables.png[]
 
 == Verify Deployment
 
-TODO: Show an image of new customer service running
+Here's the final deployment of the customer:
 
-TODO: Reset everything back to 
-- Customer image
-- Git repo on the workspace reset
+image:../images/customer-output.png[]
 
 == Troubleshooting
 
