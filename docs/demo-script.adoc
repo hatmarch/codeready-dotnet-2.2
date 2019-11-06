@@ -43,7 +43,7 @@ $ scripts/01-project-setup.sh coles-demo
 ** link:file:///Users/marc.hildenbrand/Documents/Development/codeready-dotnet-2.2/docs/demo-script.adoc[Demo Script]: For showing the architecture
 ** link:http://customer-v2-coles-demo.apps.cloes.openshifttc.com/[Customer Endpoint]: For showing changes to deployed customer service
 ** link:https://console-openshift-console.apps.cloes.openshifttc.com/k8s/ns/dotnet-workspace/routes[OpenShift Console]: Optional> For showing the workspace running on openshift
-** link:http://che-dotnet-workspace.apps.cloes.openshifttc.com/dashboard/#/[CodeReady Workspace Dashboard]: 
+** link:http://che-dotnet-workspace.apps.cloes.openshifttc.com/dashboard/#/[CodeReady Workspace Dashboard]: The actual workspace to demo
 ** link:https://dev.azure.com/mhildenb/coles-demo/_build[Azure DevOps]: To show the DevOps Pipeline home
 ****
 
@@ -338,6 +338,8 @@ image:../images/customer-output.png[]
 3. Push the changes to origin (github)
 
 ==== In CodeReady Workspace
+1. From the dashboard, go to settings on the dotnet workspace
+1. select brbaker@redhat.com and select Delete to remove him from workspace
 1. Open a terminal
 2. In the terminal, run the following
 ----
@@ -357,6 +359,10 @@ Everything up-to-date
 $ git push
 Everything up-to-date
 ----
+
+=== IDE not saving changes
+
+1. This can usually be remedied by just reloading the page using the browser button
 
 === Unresponsive IDE
 
