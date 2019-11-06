@@ -343,6 +343,19 @@ image:../images/customer-output.png[]
 $ rm -rf coles-demo
 $ git clone --branch feature-trigger https://github.com/hatmarch/codeready-dotnet-2.2.git coles-demo
 
+3. You can optionally store your login credentials (use a token) running these commands from the terminal
+----
+$ cd /projects/coles-demo
+$ git config credential.helper store
+$ git config --global credential.helper 'cache --timeout 7200'
+$ git push
+Username for 'https://github.com': hatmarch
+Password for 'https://hatmarch@github.com': 
+Everything up-to-date
+$ git push
+Everything up-to-date
+----
+
 === Unresponsive IDE
 
 If the IDE or debugger fail to start, attempt this:
