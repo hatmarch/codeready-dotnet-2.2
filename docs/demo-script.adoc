@@ -26,7 +26,7 @@ Command server:start has completed successfully.
 $ scripts/01-project-setup.sh coles-demo
 ----
 * A code ready workspace should already be configured ("prepared earlier") in the "dotnet-workspace" project that is based on link:../che/Devfile.yml[this DevFile.yml]
-** See <<Reseting CodeReady Workspace>> if there is one that needs to be restored
+** See <<Resetting CodeReady Workspace>> if there is one that needs to be restored
 
 * Two users should already be registered with the email addresses:
 ** mhildenb@redhat.com
@@ -335,13 +335,15 @@ image:../images/customer-output.png[]
 ==== In Git
 1. Using Fork, delete the feature-trigger branch from the origin repo in GitHub
 2. Recreate the feature-trigger branch on commit 89c63
+3. Push the changes to origin (github)
 
-=== In CodeReady Workspace
+==== In CodeReady Workspace
 1. Open a terminal
 2. In the terminal, run the following
 ----
 $ rm -rf coles-demo
 $ git clone --branch feature-trigger https://github.com/hatmarch/codeready-dotnet-2.2.git coles-demo
+----
 
 3. You can optionally store your login credentials (use a token) running these commands from the terminal
 ----

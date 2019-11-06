@@ -20,7 +20,8 @@ spec:
       containers:
       - env:
         name: customer
-        image: quay.io/rhdevelopers/istio-tutorial-customer:v1
+#        image: quay.io/rhdevelopers/istio-tutorial-customer:v1
+        image: mhildema/customer-dotnet:v17
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
