@@ -25,11 +25,26 @@ Command server:start has completed successfully.
 ----
 $ scripts/01-project-setup.sh coles-demo
 ----
-* A code ready workspace should already be configured ("prepared earlier") in the "dotnet-workspace" project that is based on link:che/Devfile.yml[this DevFile.yml]
+* A code ready workspace should already be configured ("prepared earlier") in the "dotnet-workspace" project that is based on link:../che/Devfile.yml[this DevFile.yml]
+** See <<Reseting CodeReady Workspace>> if there is one that needs to be restored
 
 * Two users should already be registered with the email addresses:
 ** mhildenb@redhat.com
 ** brbaker@redhat.com
+
+* Have VSCode open locally (on master branch)
+** For access to templates and restart script if needed
+
+* Setup the following tabs on the *hidden (demo driving) browser*
+** link:file:///Users/marc.hildenbrand/Documents/Development/codeready-dotnet-2.2/docs/demo-script.adoc[DemoScript]
+** link:https://mhildenb-public-stuff.s3-ap-southeast-2.amazonaws.com/Demo.html[LoginCredentials]
+
+* Setup the following tabs on the *visible browser*
+** link:file:///Users/marc.hildenbrand/Documents/Development/codeready-dotnet-2.2/docs/demo-script.adoc[Demo Script]: For showing the architecture
+** link:http://customer-v2-coles-demo.apps.cloes.openshifttc.com/[Customer Endpoint]: For showing changes to deployed customer service
+** link:https://console-openshift-console.apps.cloes.openshifttc.com/k8s/ns/dotnet-workspace/routes[OpenShift Console]: Optional> For showing the workspace running on openshift
+** link:http://che-dotnet-workspace.apps.cloes.openshifttc.com/dashboard/#/[CodeReady Workspace Dashboard]: 
+** link:https://dev.azure.com/mhildenb/coles-demo/_build[Azure DevOps]: To show the DevOps Pipeline home
 ****
 
 == Setting the Scene
@@ -150,8 +165,8 @@ image:../images/che-lightbulb-fix.png[]
 4. If you haven't already, kick off a build by selecting Terminal > Run Task... and then select build
 
 5. Ask assistant (Bryon) to log into the code ready workspace link:http://che-dotnet-workspace.apps.cloes.openshifttc.com/dashboard/#/ide/mhildenb/dotnet[here] and ask him to change the value of url to:
-* const string url = "http://preference.coles-demo.svc.cluster.local/:8080"
-* this will cause a problem
+* const string url = "!http://preference.coles-demo.svc.cluster.local:8080"
+* this ! at the start will cause a problem
 
 6. Meanwhile, demonstrate editing features whilst Bryon is making changes (_see also link:templates/Template_ValuesController.cs[Template_ValuesController.cs] in the templates directory_)
 * show the remove unnecessary usings
@@ -207,7 +222,7 @@ image:../images/debug-hover.png[]
 5. concluding that the issue is a typo in the url, correct the url line accordingly
 
 ----
-
+const string url = http://preference.coles-demo.svc.cluster.local:8080
 ----
 
 6. Build the project and then run the debugger again to test that it's working correctly.
@@ -240,6 +255,8 @@ no changes added to commit (use "git add" and/or "git commit -a")
 
 image:../images/che-git-panel.png[]
 
+3. *Preview* the changes by double clicking on the Values controller
+
 3. Once you have a commit message written, press the check box to commit the change.  
 
 4. To trigger the build, we need to push this branch to the repo which we can also do through the gui as follows:
@@ -250,7 +267,9 @@ image:../images/che-git-push.png[]
 
 == Continuous Integration (Azure DevOps Pipeline)
 
-There are a couple of pre-requisites that need to be setup with Azure DevOps.  These can be found under Project Settings
+You can open Azure DevOps window link:https://dev.azure.com/mhildenb/coles-demo/_build[here]
+
+There are a couple of pre-requisites that need to be setup with Azure DevOps.  These can be found under Project Settings (and refer back to the images from the beginning of the script)
 
 image:../images/azure-service-connections.png[]
 
@@ -310,6 +329,19 @@ Here's the final deployment of the customer:
 image:../images/customer-output.png[]
 
 == Troubleshooting
+
+=== Resetting CodeReady Workspace
+
+==== In Git
+1. Using Fork, delete the feature-trigger branch from the origin repo in GitHub
+2. Recreate the feature-trigger branch on commit 89c63
+
+=== In CodeReady Workspace
+1. Open a terminal
+2. In the terminal, run the following
+----
+$ rm -rf coles-demo
+$ git clone --branch feature-trigger https://github.com/hatmarch/codeready-dotnet-2.2.git coles-demo
 
 === Unresponsive IDE
 
