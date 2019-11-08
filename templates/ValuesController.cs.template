@@ -8,7 +8,7 @@ namespace dotnet.Controllers
 	[Route("/")]
     public class ValuesController : Controller
     {
-        const string url = "http://preference.coles-demo.svc.cluster.local:8080/";
+        const string url = "http://preference:8080/";
         const string responseStringFormat = "Customer {0} => {1}\n";
 
         static HttpClient client = new HttpClient();

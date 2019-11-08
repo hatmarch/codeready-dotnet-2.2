@@ -3,6 +3,14 @@
     // Use hover for the description of the existing attributes
     // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
     "version": "0.2.0",
+    "inputs": [
+        {
+            "id": "podName",
+            "type": "promptString",
+            "description": "Enter the name of the pod you want to debug",
+            "default": "<run oc get pods>"
+        }
+    ],
     "configurations": [
         {
             "name": ".NET Core Launch (web)",
@@ -80,14 +88,6 @@
             // "sourceFileMap": {
             //     "/workspaces/istio-tutorial/customer/dotnet": "${workspaceRoot}"
             // }
-        }
-    ],
-    "inputs": [
-        {
-            "id": "podName",
-            "type": "promptString",
-            "description": "Enter the name of the pod you want to debug",
-            "default": "<run oc get pods>"
         }
     ]
 }
