@@ -85,9 +85,10 @@
                 "pipeCwd": "${workspaceRoot}",
                 "quoteArgs": false
             },
-            // "sourceFileMap": {
-            //     "/workspaces/istio-tutorial/customer/dotnet": "${workspaceRoot}"
-            // }
+            // This map represents the directory as it is when compiled by Azure pipelines
+            "sourceFileMap": {
+                "/home/vsts/work/1/s/": "${workspaceFolder}/"
+            }
         }
     ]
 }
